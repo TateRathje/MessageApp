@@ -27,7 +27,7 @@
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
   </head>
-  <body ng-app="starter">
+  <body ng-app="messageApp">
 
     <ion-pane>
 
@@ -41,7 +41,24 @@
 
 
       <ion-content ng-controller="MainCtrl">
-        <div class="card">
+      <div class="card">
+    <!-- ======================================================================== -->
+
+    <!-- Dynamic Login -->
+      <div class="row">
+      <div ng-show="authData">
+      <p>Hello, {{ authData.facebook.displayName }}</p>
+      <button ng-click="auth.$unauth()">Logout</button>
+    </div>
+    <div ng-hide="authData">
+      <p>Welcome, please log in.</p>
+      <button ng-click="auth.$authWithOAuthPopup('facebook')">Login</button>
+    </div>
+    </div>
+    <!-- ======================================================================== -->
+
+
+        
           <div class="item item-divider">
            Message Feed...
           </div>
