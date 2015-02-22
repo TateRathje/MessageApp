@@ -1,11 +1,9 @@
-// Ionic Starter App
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
+var firebaseUrl = "https://vivid-fire-704.firebaseio.com/";
+
 angular.module('messageApp', ['ionic', 'firebase', 'messageApp.controllers', 'messageApp.services'])
 
-.run(function($ionicPlatform) {
+.run(function ($ionicPlatform, $rootScope, Auth) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -15,7 +13,79 @@ angular.module('messageApp', ['ionic', 'firebase', 'messageApp.controllers', 'me
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+    $rootScope.logout = function () {
+      console.log("Logging out from the app");
+    }
   });
+})
+
+.config(function($stateProvider, $urlRouterProvider) {
+
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
+  $stateProvider
+
+  // State to represent Login View
+    .state('login', {
+      url: "/login",
+      templateUrl: 'templates/login.html',
+      controller: 'LoginCtrl',
+      resolve: {
+        // controller will not be loaded until $waitForAuth resolves
+        // Auth refers to our $firebaseAuth wrapper in the example above
+        "currentAuth": ["Auth",
+            function (Auth) {
+            // $waitForAuth returns a promise so the resolve waits for it to complete
+                return Auth.$waitForAuth();
+      }] 
+      }
+    })
+
+  // setup an abstract state for the tabs directive
+    .state('tab', {
+    url: "/tab",
+    abstract: true,
+    templateUrl: "templates/tabs.html",
+    resolve: {
+        // controller will not be loaded until $requireAuth resolves
+        // Auth refers to our $firebaseAuth wrapper in the example above
+        "currentAuth": ["Auth",
+            function (Auth) {
+         // $requireAuth returns a promise so the resolve waits for it to complete
+         // If the promise is rejected, it will throw a $stateChangeError (see above)
+                return Auth.$requireAuth();
+    }]
+      }
+  })
+
+  // Each tab has its own nav history stack:
+
+  .state('tab.messages', {
+      url: '/messages',
+      views: {
+        'tab-messages': {
+          templateUrl: 'templates/tab-messages.html',
+          controller: 'MainCtrl'
+        }
+      }
+    })
+
+  .state('tab.account', {
+    url: '/account',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/tab-account.html',
+        controller: 'AccountCtrl'
+      }
+    }
+  });
+
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/login');
+
 });
 
 
