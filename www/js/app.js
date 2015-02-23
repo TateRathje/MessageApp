@@ -3,7 +3,7 @@ var firebaseUrl = "https://vivid-fire-704.firebaseio.com/";
 
 angular.module('messageApp', ['ionic', 'firebase', 'messageApp.controllers', 'messageApp.services'])
 
-.run(function ($ionicPlatform, $rootScope, Auth) {
+.run(function ($ionicPlatform, $rootScope, $location, Auth, $ionicLoading) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,8 +20,8 @@ angular.module('messageApp', ['ionic', 'firebase', 'messageApp.controllers', 'me
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
-
+.config(function ($stateProvider, $urlRouterProvider) {
+  console.log("settings config");
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
@@ -62,6 +62,26 @@ angular.module('messageApp', ['ionic', 'firebase', 'messageApp.controllers', 'me
   })
 
   // Each tab has its own nav history stack:
+
+  .state('tab.rooms', {
+      url: '/rooms',
+      views: {
+        'tab-rooms': {
+          templateUrl: 'templates/tab-rooms.html',
+          controller: 'RoomsCtrl'
+        }
+      }
+    })
+
+  .state('tab.chat', {
+      url: '/chat/:roomId',
+      views: {
+        'tab-messages': {
+          templateUrl: 'templates/tab-chat.html',
+          controller: 'ChatCtrl'
+        }
+      }
+    })
 
   .state('tab.messages', {
       url: '/messages',

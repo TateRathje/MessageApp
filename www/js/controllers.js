@@ -89,5 +89,16 @@ angular.module('messageApp.controllers', [])
 		} else
 				alert("Please enter email and password");
 	}
+})
+
+.controller('RoomsCtrl', function ($scope, Rooms, Chats, $state) {
+	console.log("Rooms Controller Initialized");
+	$scope.rooms = Rooms.all();
+
+	$scope.openChatRoom = function (roomId) {
+		$state.go('tab.chat', {
+			roomId: roomId
+		});
+	}
 });
 
