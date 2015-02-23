@@ -1,0 +1,51 @@
+<ion-pane>
+
+    <!-- ======================================================================== -->
+
+      <ion-header-bar class="bar-calm">
+        <h1 class="title">Our Awesome Messaging App</h1>
+      </ion-header-bar>
+
+    <!-- ======================================================================== -->
+
+
+      <ion-content>
+      <div class="card">        
+          <div class="item item-divider">
+           Message Feed...
+          </div>
+        <div class="item item-divider">
+         <ul>
+          <li ng-repeat='msg in messages'>
+            <strong >{{msg.from}}</strong>
+            <br>
+            <div class="row">
+            <div class="col col-75"><p>{{msg.body}}</p></div>
+            <div class="col time"><a class="ion-trash-a trash" ng-click="messages.$remove(msg)"> </a>{{msg.timestamp | date:"EEEE h:mm a"}}</div>
+            </div>
+          </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="item item-text-wrap">
+         <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Name:</span>
+          <input ng-model='name' type="text" placeholder="Enter your name...">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Message:</span>
+          <textarea ng-model='msg' placeholder="Type a message..."></textarea> 
+        </label>
+         <button ng-click="addMessage(msg)" class="button button-block button-calm">
+          Send 
+         </button>
+        </div>
+        </div>
+          </div>
+        </div>
+      
+      </div>
+      </ion-content>
+    </ion-pane>
