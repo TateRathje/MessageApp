@@ -7,25 +7,18 @@ navigation history that also transitions its views in and out.
 
 
   <!-- Dashboard Tab -->
-  <ion-tab title="Status" icon-off="ion-ios7-pulse" icon-on="ion-ios7-pulse-strong" href="#/tab/dash">
-    <ion-nav-view name="tab-dash"></ion-nav-view>
+  <ion-tab title="Rooms" icon-off="ion-ios7-box-outline" icon-on="ion-ios7-box" href="#/tab/rooms">
+    <ion-nav-view name="tab-rooms"></ion-nav-view>
   </ion-tab>
 
 
   <!-- Chats Tab -->
-  <ion-tab title="Chats" icon-off="ion-ios7-chatboxes-outline" icon-on="ion-ios7-chatboxes" href="#/tab/chats">
-    <ion-nav-view name="tab-chats"></ion-nav-view>
+  <ion-tab title="Chat" icon-off="ion-ios7-chatboxes-outline" icon-on="ion-ios7-chatboxes" href="#/tab/chat">
+    <ion-nav-view name="tab-chat"></ion-nav-view>
   </ion-tab>
 
-  <!-- Friends Tab -->
-  <ion-tab title="Friends" icon-off="ion-ios7-heart-outline" icon-on="ion-ios7-heart" href="#/tab/friends">
-    <ion-nav-view name="tab-friends"></ion-nav-view>
-  </ion-tab>
-
-
-  <!-- Account Tab -->
-  <ion-tab title="Account" icon-off="ion-ios7-gear-outline" icon-on="ion-ios7-gear" href="#/tab/account">
-    <ion-nav-view name="tab-account"></ion-nav-view>
+  <!-- Logout Button -->
+  <ion-tab title="Logout" icon-off="ion-ios7-gear-outline" icon-on="ion-ios7-gear" ng-click="logout()" href="">
   </ion-tab>
 
 
