@@ -109,7 +109,7 @@ angular.module('messageApp', ['ionic', 'firebase', 'angularMoment', 'messageApp.
   .state('tab.chat', {
       url: '/chat/:roomId',
       views: {
-        'tab-messages': {
+        'tab-chat': {
           templateUrl: 'templates/tab-chat.html',
           controller: 'ChatCtrl'
         }
