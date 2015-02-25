@@ -1,7 +1,13 @@
 
 var firebaseUrl = "https://vivid-fire-704.firebaseio.com/";
 
-angular.module('messageApp', ['ionic', 'firebase', 'messageApp.controllers', 'messageApp.services'])
+function onDeviceReady() {
+  angular.bootstrap(document, ["mychat"]);
+}
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+angular.module('messageApp', ['ionic', 'firebase', 'angularMoment', 'messageApp.controllers', 'messageApp.services'])
 
 .run(function ($ionicPlatform, $rootScope, $location, Auth, $ionicLoading) {
   $ionicPlatform.ready(function() {
@@ -13,15 +19,42 @@ angular.module('messageApp', ['ionic', 'firebase', 'messageApp.controllers', 'me
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+    // To Reslove Bug
+    ionic.Platform.fullScreen();
+
+    $rootScope.firebaseUrl = firebaseUrl;
+    $rootScope.displayName = null;
+
+    Auth.$onAuth(function (authData) {
+      if (authData) {
+        console.log("Logged in as:", authData.uid);
+      } else {
+        console.log("Logged out");
+        $ionicLoading.hide();
+        $location.path('/login');
+      }
+    }); 
 
     $rootScope.logout = function () {
       console.log("Logging out from the app");
+      $ionicLoading.show({
+        template: 'Logging Out...'
+      });
+      Auth.$unauth();
     }
+
+    $rootScope.$on("stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+      // We can catch the error thrown when the $requireAuth promise is rejected
+      // and redirect the user back to the home page
+      if (error === "AUTH_REQUIRED") {
+        $location.path("/login");
+      }
+    });
   });
 })
 
 .config(function ($stateProvider, $urlRouterProvider) {
-  console.log("settings config");
+  console.log("setting config");
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
@@ -76,14 +109,14 @@ angular.module('messageApp', ['ionic', 'firebase', 'messageApp.controllers', 'me
   .state('tab.chat', {
       url: '/chat/:roomId',
       views: {
-        'tab-messages': {
+        'tab-chat': {
           templateUrl: 'templates/tab-chat.html',
           controller: 'ChatCtrl'
         }
       }
     })
 
-  .state('tab.messages', {
+  /*.state('tab.messages', {
       url: '/messages',
       views: {
         'tab-messages': {
@@ -91,7 +124,7 @@ angular.module('messageApp', ['ionic', 'firebase', 'messageApp.controllers', 'me
           controller: 'MainCtrl'
         }
       }
-    })
+    })*/
 
   .state('tab.account', {
     url: '/account',
@@ -101,7 +134,7 @@ angular.module('messageApp', ['ionic', 'firebase', 'messageApp.controllers', 'me
         controller: 'AccountCtrl'
       }
     }
-  });
+  })
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

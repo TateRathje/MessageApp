@@ -1,6 +1,6 @@
 angular.module('messageApp.controllers', [])
 
-.controller('MainCtrl', function ($scope, $firebase, $state) {
+/*.controller('MainCtrl', function ($scope, $firebase, $state) {
 
     var ref = new Firebase("https://vivid-fire-704.firebaseio.com/");
  
@@ -21,13 +21,12 @@ angular.module('messageApp.controllers', [])
         $scope.msg = "";
       }
     };
- })
+ })*/
 
 .controller('LoginCtrl', function ($scope, $ionicModal, $state, $firebaseAuth, $ionicLoading, $rootScope) {
 	console.log('Login Controller Initialized');
 
-	var ref = new Firebase("https://vivid-fire-704.firebaseio.com/");
-	//var ref = new Firebase($scope.firebaseUrl);
+	var ref = new Firebase($scope.firebaseUrl);
 	var auth = $firebaseAuth(ref);
 
 	$ionicModal.fromTemplateUrl('templates/signup.html', {
@@ -81,13 +80,41 @@ angular.module('messageApp.controllers', [])
 					});
 				});
 				$ionicLoading.hide();
-				$state.go('tab.messages');
+				$state.go('tab.rooms');
 			}).catch(function (error) {
 				alert("Authentication failed:" + error.messages);
 				$ionicLoading.hide();
 			});
 		} else
 				alert("Please enter email and password");
+	}
+})
+
+.controller('ChatCtrl', function ($scope, Chats, $state) {
+	console.log("Chat Controller Initialized");
+
+	$scope.IM = {
+		textMessage: ""
+	};
+
+	Chats.selectRoom($state.params.roomId);
+
+	var roomName = Chats.getSelectedRoomName();
+
+	// Fetching Chat Records only if a Room is Selected
+	if (roomName) {
+		$scope.roomName = " - " + roomName;
+		$scope.chats = Chats.all();
+	}
+
+	$scope.sendMessage = function (msg) {
+		console.log(msg);
+		Chats.send($scope.displayName, msg);
+		$scope.IM.textMessage = "";
+	}
+
+	$scope.remove = function (chat) {
+		Chats.remove(chat);
 	}
 })
 
