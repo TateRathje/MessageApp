@@ -17,7 +17,7 @@
 			</ion-item>
 			<ion-item class="" ng-repeat="chat in chats | orderBy:'createdAt':true" type="item-text-wrap">
 				<h4>{{chat.from}}</h4>
-				<span am-time-ago="chats.createdAt" class="item-note">		
+				<span am-time-ago="chat.createdAt" class="item-note">		
 				</span> 
 				<p>{{chat.message}}</p>
 				<ion-option-button class="button-assertive" ng-click="remove(chat)">
