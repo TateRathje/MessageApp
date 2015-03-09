@@ -1,28 +1,5 @@
 angular.module('messageApp.controllers', [])
 
-/*.controller('MainCtrl', function ($scope, $firebase, $state) {
-
-    var ref = new Firebase("https://vivid-fire-704.firebaseio.com/");
- 
-    $scope.messages = $firebase(ref).$asArray();
-
-    //ADD MESSAGE METHOD
-    $scope.addMessage = function() {
-
-      if ($scope.msg) {
-        //ALLOW CUSTOM OR ANONYMOUS USER NAMES
-        var name = $scope.name || 'anonymous';
-        $scope.messages.$add({
-          from: name,
-          body: $scope.msg,
-          timestamp: Firebase.ServerValue.TIMESTAMP
-        });
-        //RESET MESSAGE
-        $scope.msg = "";
-      }
-    };
- })*/
-
 .controller('LoginCtrl', function ($scope, $ionicModal, $state, $firebaseAuth, $ionicLoading, $rootScope) {
 	console.log('Login Controller Initialized');
 
@@ -30,10 +7,28 @@ angular.module('messageApp.controllers', [])
 	var auth = $firebaseAuth(ref);
 
 	$ionicModal.fromTemplateUrl('templates/signup.html', {
+		id: '1',
 		scope: $scope
 	}).then(function (modal) {
-		$scope.modal = modal;
+		$scope.modal1 = modal;
 	});
+
+	$ionicModal.fromTemplateUrl('templates/signup-skills.html', {
+		id: '2',
+		scope: $scope
+	}).then(function (modal) {
+		$scope.modal2 = modal;
+	});
+
+	$scope.openModal = function(index) {
+      if(index == 1) $scope.modal1.show();
+      else $scope.modal2.show();
+    };
+
+    $scope.closeModal = function(index) {
+      if(index == 1) $scope.modal1.hide();
+      else $scope.modal2.hide();
+    };	
 
 	$scope.createUser = function (user) {
 		console.log("Create User Function Called");
@@ -52,7 +47,7 @@ angular.module('messageApp.controllers', [])
 						displayName: user.displayname
 					});
 					$ionicLoading.hide();
-					$scope.modal.hide();
+					$scope.modal2.show();
 			}).catch(function (error) {
 				alert("Error: " + error);
 				$ionicLoading.hide();
@@ -80,7 +75,7 @@ angular.module('messageApp.controllers', [])
 					});
 				});
 				$ionicLoading.hide();
-				$state.go('tab.rooms');
+				$state.go('tab.account');
 			}).catch(function (error) {
 				alert("Authentication failed:" + error.messages);
 				$ionicLoading.hide();

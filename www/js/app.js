@@ -2,7 +2,7 @@
 var firebaseUrl = "https://vivid-fire-704.firebaseio.com/";
 
 function onDeviceReady() {
-  angular.bootstrap(document, ["mychat"]);
+  angular.bootstrap(document, ["messageApp"]);
 }
 
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -115,16 +115,6 @@ angular.module('messageApp', ['ionic', 'firebase', 'angularMoment', 'messageApp.
         }
       }
     })
-
-  /*.state('tab.messages', {
-      url: '/messages',
-      views: {
-        'tab-messages': {
-          templateUrl: 'templates/tab-messages.html',
-          controller: 'MainCtrl'
-        }
-      }
-    })*/
 
   .state('tab.account', {
     url: '/account',
