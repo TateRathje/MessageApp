@@ -33,85 +33,42 @@
   </div>
   <div class="item item-text-wrap">
     
-  	<div class="row">
-<div class="col col-50">
+  <div class="row">
+  <div class="col col-50">
 
-<ul class="list">
+  <div ng-controller="SkillsCtrl"> 
+    <div class="list">
+      <ion-checkbox ng-repeat="item in skillList"
+          ng-model="item.checked" 
+          ng-checked="item.checked">
+        {{ item.text }}     
+      </ion-checkbox>
+    </div>
+  </div> 
 
-  <li class="item item-checkbox">
-     <label class="checkbox">
-       <input type="checkbox">
-     </label>
-     Computers
-  </li>
-  <li class="item item-checkbox">
-     <label class="checkbox">
-       <input type="checkbox">
-     </label>
-     Cars
-  </li>
-  <li class="item item-checkbox">
-     <label class="checkbox">
-       <input type="checkbox">
-     </label>
-     Cooking
-  </li>
-  <li class="item item-checkbox">
-     <label class="checkbox">
-       <input type="checkbox">
-     </label>
-     Baby Sitting
-  </li>
-
-</ul>
-
-</div>
+  </div>
 
 <!-- ==================================================================== -->
 
 <div class="col col-50">
 
-<ul class="list">
-
-   <li class="item item-checkbox">
-     <label class="checkbox">
-       <input type="checkbox">
-     </label>
-     Computers
-  </li>
-  <li class="item item-checkbox">
-     <label class="checkbox">
-       <input type="checkbox">
-     </label>
-     Cars
-  </li>
-  <li class="item item-checkbox">
-     <label class="checkbox">
-       <input type="checkbox">
-     </label>
-     Cooking
-  </li>
-  <li class="item item-checkbox">
-     <label class="checkbox">
-       <input type="checkbox">
-     </label>
-     Baby Sitting
-  </li>
-
-</ul>
+<div ng-controller="SkillsCtrl"> 
+  <div class="list">
+    <ion-checkbox ng-repeat="item in skillList"
+        ng-model="item.checked" 
+        ng-checked="item.checked">
+      {{ item.text }}     
+    </ion-checkbox>
+  </div>
+</div> 
 </div>
 
-
 </div>
-
-
-
   </div>
   <div class="item item-divider">
-    I'm a Footer in a Card!
-  </div>
-</div>
-
+    I'm a Footer in a Card!  
+ </div>
+</div> 
 
 <!-- ==================================================================== -->
 

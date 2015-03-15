@@ -85,6 +85,18 @@ angular.module('messageApp.controllers', [])
 	}
 })
 
+.controller('SkillsCtrl', function ($scope) {
+	$scope.skillList = [
+    { text: "Computer", checked: true },
+    { text: "Cars", checked: false },
+    { text: "Cooking", checked: true },
+    { text: "Baby Sitting", checked: false },
+    { text: "Driver", checked: true },
+    { text: "Cleaning", checked: false },
+    { text: "Reading", checked: false }
+  ];
+})
+
 .controller('ChatCtrl', function ($scope, Chats, $state) {
 	console.log("Chat Controller Initialized");
 
